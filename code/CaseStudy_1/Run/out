@@ -89,3 +89,94 @@ Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLA
          4   0.0331   0.0071   0.1992   0.0425
          5   0.0453   0.0143   0.2836   0.0897
          6   0.0655   0.0327   0.4104   0.2052
+ --- rho 0.70 
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+ **************** MC_NVT ***************
+  ******** test random numbers ***********
+  i,ranf()            1  0.11180420853611572     
+  i,ranf()            2  0.74166310703406746     
+  i,ranf()            3  0.46027934237707857     
+  i,ranf()            4  0.11380693953292953     
+  i,ranf()            5  0.54839950623688738     
+ Initialisation on lattice: 
+       100 particles placed on a lattice
+  Number of equilibration cycles             :         0
+  Number of production cycles                :       200
+  Sample frequency                           :         1
+
+  Number of att. to displ. a part. per cycle :        50
+  Maximum displacement                       :     0.090
+
+
+  Number of particles                        :       100
+  Temperature                                :     2.000
+  Density                                    :     0.700
+  Box length                                 :     5.228
+
+  Model parameters: 
+     epsilon: 1.000
+     sigma  : 1.000
+     mass   : 1.000
+ Simulations with tail correction: 
+ Potential truncated at  Rc =:     2.614
+ Tail corrections:   energy =     -0.328 pressure     -0.459
+
+
+ Total energy initial configuration:   -151.79731
+ Total virial initial configuration:   -589.36749
+ ======>> Done           40  out of          200
+ Max. displ. set to :  0.135 (old :  0.090)
+ Frac. acc.: 0.97 attempts:    2000 succes:    1943
+ ======>> Done           80  out of          200
+ Max. displ. set to :  0.203 (old :  0.135)
+ Frac. acc.: 0.89 attempts:    2000 succes:    1779
+ ======>> Done          120  out of          200
+ Max. displ. set to :  0.304 (old :  0.203)
+ Frac. acc.: 0.79 attempts:    2000 succes:    1575
+ ======>> Done          160  out of          200
+ Max. displ. set to :  0.456 (old :  0.304)
+ Frac. acc.: 0.75 attempts:    2000 succes:    1507
+ ======>> Done          200  out of          200
+ Max. displ. set to :  0.569 (old :  0.456)
+ Frac. acc.: 0.62 attempts:    2000 succes:    1248
+ Number of att. to displ. a part.  :      10000
+ success:       8052(= 80.52%)
+ Total energy end of simulation    :   -134.37422
+       running energy              :   -134.37422
+       difference                  :  -0.31264E-12
+ Total virial end of simulation    :     73.77397
+       running virial              :     73.77397
+       difference                  :   0.34106E-12
+ Derivative of E with respect to L :  -22659.35778
+  ***** Calculate block averages ************
+   number of averages  2
+ block data     1  -1.528241  -0.358302
+ block data     2  -1.505440  -0.077141
+ block data     3  -1.416095   0.396699
+ block data     4  -1.366661   0.688340
+ block data     5  -1.334194   0.903338
+ block data     6  -1.388355   0.828949
+ block data     7  -1.287640   1.294492
+ block data     8  -1.170928   1.694769
+ block data     9  -1.228532   1.712176
+ block data    10  -1.182626   1.933974
+ block data    11  -1.180124   1.884483
+ block data    12  -1.210781   1.843987
+ block data    13  -1.302793   1.399770
+ block data    14  -1.372931   1.056366
+ block data    15  -1.245280   1.579121
+ block data    16  -1.177973   1.752742
+ block data    17  -1.184544   1.785295
+ block data    18  -1.238957   1.590281
+ block data    19  -1.183163   1.782981
+ block data    20  -1.229668   1.598155
+ ###### energy       -1.28674623         0.02650447
+ ###### press         1.26452370         0.15175350
+   number of blocks  200
+         0   0.0084   0.0004   0.0481   0.0024
+         1   0.0117   0.0008   0.0677   0.0048
+         2   0.0163   0.0016   0.0954   0.0096
+         3   0.0224   0.0032   0.1344   0.0194
+         4   0.0331   0.0071   0.1992   0.0425
+         5   0.0453   0.0143   0.2836   0.0897
+         6   0.0655   0.0327   0.4104   0.2052
