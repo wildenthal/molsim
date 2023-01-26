@@ -19,7 +19,7 @@ c
       INCLUDE 'conf.inc'
       INCLUDE 'system.inc'
       DOUBLE PRECISION enn, eno, En, RANF, xn, yn, zn, viro, virn, Vir, 
-     &                 Dr, den
+     &                 Dr, den, den_o, den_n
       INTEGER o, Attempt, Nacc, jb, Iseed
  
       Attempt = Attempt + 1
@@ -27,19 +27,20 @@ c
 c     ---select a particle at random
       o = INT(NPART*RANF(Iseed)) + 1
 c     ---calculate energy old configuration
-      CALL ENERI(X(o), Y(o), Z(o), o, jb, eno, viro, den)
+      CALL ENERI(X(o), Y(o), Z(o), o, jb, eno, viro, den_o)
 c     ---give particle a random displacement
       xn = X(o) + (RANF(Iseed)-0.5D0)*Dr
       yn = Y(o) + (RANF(Iseed)-0.5D0)*Dr
       zn = Z(o) + (RANF(Iseed)-0.5D0)*Dr
 c     ---calculate energy new configuration:
-      CALL ENERI(xn, yn, zn, o, jb, enn, virn, den)
+      CALL ENERI(xn, yn, zn, o, jb, enn, virn, den_n)
 c     ---acceptance test
       IF (RANF(Iseed).LT.EXP(-BETA*(enn-eno))) THEN
 c        --accepted
          Nacc = Nacc + 1
          En = En + (enn-eno)
          Vir = Vir + (virn-viro)
+         den = den + (den_n - den_o)
 c        ---put particle in simulation box
          IF (xn.LT.0) xn = xn + BOX
          IF (xn.GT.BOX) xn = xn - BOX

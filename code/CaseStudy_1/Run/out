@@ -180,3 +180,70 @@ Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLA
          4   0.0331   0.0071   0.1992   0.0425
          5   0.0453   0.0143   0.2836   0.0897
          6   0.0655   0.0327   0.4104   0.2052
+ --- rho 0.70 
+../Source/mc_nvt: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34' not found (required by ../Source/mc_nvt)
+lio: formatted io not allowed
+apparent state: unit 31 named fort.31
+last format: list io
+lately reading direct formatted external IO
+  ***** Calculate block averages ************
+ --- rho 0.70 
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+ **************** MC_NVT ***************
+  ******** test random numbers ***********
+  i,ranf()            1  0.11180420853611572     
+  i,ranf()            2  0.74166310703406746     
+  i,ranf()            3  0.46027934237707857     
+  i,ranf()            4  0.11380693953292953     
+  i,ranf()            5  0.54839950623688738     
+ Initialisation on lattice: 
+       100 particles placed on a lattice
+  Number of equilibration cycles             :         0
+  Number of production cycles                :       200
+  Sample frequency                           :         1
+
+  Number of att. to displ. a part. per cycle :        50
+  Maximum displacement                       :     0.090
+
+
+  Number of particles                        :       100
+  Temperature                                :     2.000
+  Density                                    :     0.700
+  Box length                                 :     5.228
+
+  Model parameters: 
+     epsilon: 1.000
+     sigma  : 1.000
+     mass   : 1.000
+ Simulations with tail correction: 
+ Potential truncated at  Rc =:     2.614
+ Tail corrections:   energy =     -0.328 pressure     -0.459
+
+
+ Total energy initial configuration:   -151.79731
+ Total virial initial configuration:   -589.36749
+ ======>> Done           40  out of          200
+ Max. displ. set to :  0.135 (old :  0.090)
+ Frac. acc.: 0.97 attempts:    2000 succes:    1943
+ ======>> Done           80  out of          200
+ Max. displ. set to :  0.203 (old :  0.135)
+ Frac. acc.: 0.89 attempts:    2000 succes:    1779
+ ======>> Done          120  out of          200
+ Max. displ. set to :  0.304 (old :  0.203)
+ Frac. acc.: 0.79 attempts:    2000 succes:    1575
+ ======>> Done          160  out of          200
+ Max. displ. set to :  0.456 (old :  0.304)
+ Frac. acc.: 0.75 attempts:    2000 succes:    1507
+ ======>> Done          200  out of          200
+ Max. displ. set to :  0.569 (old :  0.456)
+ Frac. acc.: 0.62 attempts:    2000 succes:    1248
+ Number of att. to displ. a part.  :      10000
+ success:       8052(= 80.52%)
+ Total energy end of simulation    :   -134.37422
+       running energy              :   -134.37422
+       difference                  :  -0.31264E-12
+ Total virial end of simulation    :     73.77397
+       running virial              :     73.77397
+       difference                  :   0.34106E-12
+ Derivative of E with respect to L :  467456.13831
+../Block/block: Command not found.

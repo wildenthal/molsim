@@ -24,6 +24,7 @@ c
 c
       En = 0
       Vir = 0
+      Den = 0
       DO j = Jb, NPART
          IF (j.NE.I) THEN
             dx = Xi - X(j)

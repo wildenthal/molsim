@@ -23,15 +23,16 @@ c__________________________________________________________________________
       IMPLICIT NONE
       INTEGER iseed, equil, prod, nsamp, ii, icycl, ndispl, attempt, 
      &        nacc, ncycl, nmoves, imove
-      DOUBLE PRECISION en, ent, vir, virt, dr, den
+      DOUBLE PRECISION en, ent, vir, virt, dr, den, den_t
       den = 0.0
+      den_t = 0.0
 
       WRITE (6, *) '**************** MC_NVT ***************'
 c     ---initialize sysem
-      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed, den)
+      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed, den_t)
       nmoves = ndispl
 c     ---total energy of the system
-      CALL TOTERG(en, vir, den)
+      CALL TOTERG(en, vir, den_t)
       WRITE (6, 99001) en, vir
 c     ---start MC-cycle
       DO ii = 1, 2
@@ -69,7 +70,7 @@ c              ---adjust maximum displacements
             IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
      &                               100.*FLOAT(nacc)/FLOAT(attempt)
 c           ---test total energy
-            CALL TOTERG(ent, virt, den)
+            CALL TOTERG(ent, virt, den_t)
             IF (ABS(ent-en).GT.1.D-6) THEN
                WRITE (6, *) 
      &                    ' ######### PROBLEMS ENERGY ################ '

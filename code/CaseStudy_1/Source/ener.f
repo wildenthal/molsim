@@ -26,6 +26,7 @@ c
       ELSE
          En = 0
          Vir = 0
+         Den = 0
       END IF
       RETURN
       END
