@@ -3,7 +3,7 @@ rm      out
 cp 	lj.model        	fort.25
 
 #generate n values of lambda with python script
-python3 listgen.py 100
+python3 listgen.py 900
 
 set lambdas=`cat lambdas`
 rm lambdas

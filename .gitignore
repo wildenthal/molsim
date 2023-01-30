@@ -1,7 +1,4 @@
 *.swp
 *.o
 mc_nvt
-out
-lj.res
 original_code/
-lj.prt
