@@ -18,7 +18,9 @@ HDRS	      =
 
 INSTALL	      = install
 
-LD	      = f77
+LD	      = gfortran
+
+FC        = gfortran
 
 LDFLAGS	      = $(COMPFLAGS)
 
@@ -43,7 +45,8 @@ OBJS	      = adjust.o \
 		readdat.o \
 		sample.o \
 		store.o \
-		toterg.o
+		toterg.o \
+		widom.o
 
 PRINT	      = pr
 

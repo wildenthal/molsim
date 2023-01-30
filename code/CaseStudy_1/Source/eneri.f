@@ -11,7 +11,7 @@ c  Jb (input) = 0 calculates energy particle I with all other particle
 c             = jb calculates energy particle I with all particles j > jb
 c  En  (output) energy particle i
 c  Vir (output) virial particle i
-c
+c  Den (output)
 c
       IMPLICIT NONE
       INCLUDE 'parameter.inc'

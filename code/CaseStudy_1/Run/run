@@ -1,12 +1,12 @@
 #! /bin/csh -f
-rm      out
+# rm      out
 cp 	lj.model        	fort.25
 foreach rho (0.70)
   echo " --- rho ${rho} "  		>> out
   echo " --- rho ${rho} "  
   cat > fort.15  <<endofdata
-  ibeg  , nequil  , prod   nsamp  iseed
-   0      9998     9999  1        368675
+  ibeg  , nequil  , prod   nsamp  iseed   nghost
+   0      9998     9999  1        368675   10
   dr
   0.09 
   ndispl
@@ -22,7 +22,7 @@ endofdata
  #perform block analysis
  cp 	lj.prth 		fort.31
  cp  	lj.prt 			fort.32
- ../Block/block  	 		>>& out 
+#  ../Block/block  	 		>>& out 
  rm fort.*
 end
 python3 analyze.py

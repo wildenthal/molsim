@@ -22,12 +22,12 @@ c__________________________________________________________________________
  
       IMPLICIT NONE
       INTEGER iseed, equil, prod, nsamp, ii, icycl, ndispl, attempt, 
-     &        nacc, ncycl, nmoves, imove
+     &        nacc, ncycl, nmoves, imove, nghost
       DOUBLE PRECISION en, ent, vir, virt, dr, den, dent
 
       WRITE (6, *) '**************** MC_NVT ***************'
 c     ---initialize sysem
-      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed)
+      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed, nghost)
       nmoves = ndispl
 c     ---total energy of the system
       CALL TOTERG(en, vir, den)
@@ -42,6 +42,8 @@ c        --- ii=2 production
          ELSE
             IF (ncycl.NE.0) WRITE (6, *) ' Start production '
             ncycl = prod
+c           ---initialize Widom's test particle insertion method
+            CALL WIDOM(0, nghost)
          END IF
          attempt = 0
          nacc = 0
@@ -54,8 +56,11 @@ c              ---attempt to displace a particle
             END DO
             IF (ii.EQ.2) THEN
 c              ---sample averages
-               IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir, 
-     &                                                              den)
+               IF (MOD(icycl,nsamp).EQ.0) THEN
+c                 ---add test particles
+                  CALL WIDOM(1, nghost)   
+                  CALL SAMPLE(icycl, en, vir, den)
+               END IF
             END IF
             IF (MOD(icycl,ncycl/5).EQ.0) THEN
                WRITE (6, *) '======>> Done ', icycl, ' out of ', ncycl
@@ -83,6 +88,8 @@ c           ---test total energy
          END IF
       END DO
       CALL STORE(21, dr)
+c     ---determine chemical potential
+      CALL WIDOM(2, nghost)
       STOP
  
 99001 FORMAT (' Total energy initial configuration: ', f12.5, /, 

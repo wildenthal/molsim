@@ -1,5 +1,5 @@
 **==readdat.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
-      SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
+      SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed, nghost)
 C     ---read input data and model parameters
 c
 c     ---input parameters: file: fort.15
@@ -41,14 +41,14 @@ c    X(NPART),Y(NPART),Z(NPART): position particle last particle
       INCLUDE 'system.inc'
       INCLUDE 'potential.inc'
       INCLUDE 'conf.inc'
-      INTEGER ibeg, Equil, Prod, i, Ndispl, Nsamp, Iseed
+      INTEGER ibeg, Equil, Prod, i, Ndispl, Nsamp, Iseed, nghost
       DOUBLE PRECISION eps, sig, CORU, CORP, vir, boxf, rhof, rho, Dr,
      & den
  
  
 c     ---read simulation data
       READ (15, *)
-      READ (15, *) ibeg, Equil, Prod, Nsamp, Iseed
+      READ (15, *) ibeg, Equil, Prod, Nsamp, Iseed, nghost
       READ (15, *)
       READ (15, *) Dr
       READ (15, *)
