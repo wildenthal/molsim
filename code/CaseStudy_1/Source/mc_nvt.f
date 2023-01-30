@@ -24,7 +24,10 @@ c__________________________________________________________________________
       INTEGER iseed, equil, prod, nsamp, ii, icycl, ndispl, attempt, 
      &        nacc, ncycl, nmoves, imove
       DOUBLE PRECISION en, ent, vir, virt, dr, den, dent
-
+      DOUBLE PRECISION dens, denc, dena, denb
+c     ---initialize values for dE/dL accumulator
+      dens = 0.D0
+      denc = 0.D0
       WRITE (6, *) '**************** MC_NVT ***************'
 c     ---initialize sysem
       CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed)
@@ -56,6 +59,12 @@ c              ---attempt to displace a particle
 c              ---sample averages
                IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir, 
      &                                                              den)
+c              ---sum values with Kahan algorithm
+               dena = den - denc
+               denb = dens + dena
+               denc = (denb - dens) - dena
+               dens = denb
+               
             END IF
             IF (MOD(icycl,ncycl/5).EQ.0) THEN
                WRITE (6, *) '======>> Done ', icycl, ' out of ', ncycl
@@ -65,6 +74,7 @@ c              ---adjust maximum displacements
                CALL ADJUST(attempt, nacc, dr)
             END IF
          END DO
+         dens = dens/prod
          IF (ncycl.NE.0) THEN
             IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
      &                               100.*FLOAT(nacc)/FLOAT(attempt)
@@ -79,7 +89,7 @@ c           ---test total energy
      &                    ' ######### PROBLEMS VIRIAL ################ '
             END IF
             WRITE (6, 99002) ent, en, ent-en, virt, vir, virt-vir,
-     &                       dent, den, dent-den
+     &                       dent, den, dent-den, dens
          END IF
       END DO
       CALL STORE(21, dr)
@@ -96,7 +106,8 @@ c           ---test total energy
      &        '       difference                  : ', e12.5 /,
      &        ' Value dE/dL at end of simulation  : ', f12.5 /,
      &        '       running dE/dL               : ', f12.5 /,
-     &        '       difference                  : ', f12.5 )
+     &        '       difference                  : ', f12.5 /,
+     &        ' Ensemble average dE/dL            : ', f12.5)
 99003 FORMAT (' Number of att. to displ. a part.  : ', i10, /, 
      &        ' success: ', i10, '(= ', f5.2, '%)')
       END
