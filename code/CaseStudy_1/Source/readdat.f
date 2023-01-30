@@ -43,7 +43,7 @@ c    X(NPART),Y(NPART),Z(NPART): position particle last particle
       INCLUDE 'conf.inc'
       INTEGER ibeg, Equil, Prod, i, Ndispl, Nsamp, Iseed
       DOUBLE PRECISION eps, sig, CORU, CORP, vir, boxf, rhof, rho, Dr,
-     & Den
+     & den
  
  
 c     ---read simulation data
@@ -107,6 +107,7 @@ c     ---calculate cut-off radius potential
       IF (SHIFT) THEN
 c     ---calculate energy of the shift
          ECUT = 0
+         den = 0
          CALL ENER(ECUT, vir, RC2, den)
          WRITE (6, 99005) RC, ECUT
       END IF

@@ -23,22 +23,17 @@ c__________________________________________________________________________
       IMPLICIT NONE
       INTEGER iseed, equil, prod, nsamp, ii, icycl, ndispl, attempt, 
      &        nacc, ncycl, nmoves, imove
-      DOUBLE PRECISION en, ent, vir, virt, dr, den, den_t
-      den = 0.0
+      DOUBLE PRECISION en, ent, vir, virt, dr, den, dent
 
       WRITE (6, *) '**************** MC_NVT ***************'
 c     ---initialize sysem
-      den_t = 0
-      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed, den_t)
+      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed)
       nmoves = ndispl
 c     ---total energy of the system
       CALL TOTERG(en, vir, den)
-      WRITE (6, 99001) en, vir
+      WRITE (6, 99001) en, vir, den
 c     ---start MC-cycle
       DO ii = 1, 2
-         IF (ii.EQ.2) THEN
-            den = 0
-         END IF
 c        --- ii=1 equilibration
 c        --- ii=2 production
          IF (ii.EQ.1) THEN
@@ -73,7 +68,7 @@ c              ---adjust maximum displacements
             IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
      &                               100.*FLOAT(nacc)/FLOAT(attempt)
 c           ---test total energy
-            CALL TOTERG(ent, virt, den_t)
+            CALL TOTERG(ent, virt, dent)
             IF (ABS(ent-en).GT.1.D-6) THEN
                WRITE (6, *) 
      &                    ' ######### PROBLEMS ENERGY ################ '
@@ -82,22 +77,26 @@ c           ---test total energy
                WRITE (6, *) 
      &                    ' ######### PROBLEMS VIRIAL ################ '
             END IF
-            den = den/(prod*nmoves)
-            WRITE (6, 99002) ent, en, ent - en, virt, vir, virt -vir,den
+            WRITE (6, 99002) ent, en, ent-en, virt, vir, virt-vir,
+     &                       dent, den, dent-den
          END IF
       END DO
       CALL STORE(21, dr)
       STOP
  
 99001 FORMAT (' Total energy initial configuration: ', f12.5, /, 
-     &        ' Total virial initial configuration: ', f12.5)
+     &        ' Total virial initial configuration: ', f12.5 /,
+     &        ' Value  dE/dL initial configuration: ', f12.5)
 99002 FORMAT (' Total energy end of simulation    : ', f12.5, /, 
      &        '       running energy              : ', f12.5, /, 
-     &        '       difference                  :  ', e12.5, /, 
+     &        '       difference                  : ', e12.5, /, 
      &        ' Total virial end of simulation    : ', f12.5, /, 
      &        '       running virial              : ', f12.5, /, 
-     &        '       difference                  :  ', e12.5 /,
-     &        ' Derivative of E with respect to L :  ', f12.5)
+     &        '       difference                  : ', e12.5 /,
+     &        ' Value dE/dL at end of simulation  : ', f12.5 /,
+     &        '       running dE/dL               : ', f12.5 /,
+     &        '       difference                  : ', f12.5 /,
+     &        ' Ensemble average of dE/dL         : ', f12.5)
 99003 FORMAT (' Number of att. to displ. a part.  : ', i10, /, 
      &        ' success: ', i10, '(= ', f5.2, '%)')
       END

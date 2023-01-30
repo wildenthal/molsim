@@ -4,7 +4,7 @@ foreach rho (0.70)
   echo " --- rho ${rho} "  		>> out
   echo " --- rho ${rho} "  
   cat > fort.15  <<endofdata
-  ibeg  , nequil  , lmax   nsamp  iseed
+  ibeg  , nequil  , prod   nsamp  iseed
    0      00       200   1        368675
   dr
   0.09 
@@ -20,7 +20,7 @@ endofdata
  cp 	fort.66         	lj.prt
  #perform block analysis
  cp 	lj.prth 		fort.31
- mv  	lj.prt 			fort.32
+ cp  	lj.prt 			fort.32
  ../Block/block  	 		>>& out 
  rm fort.*
 end

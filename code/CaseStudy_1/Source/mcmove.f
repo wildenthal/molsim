@@ -1,5 +1,5 @@
 **==mcmove.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
-      SUBROUTINE MCMOVE(En, Vir, Attempt, Nacc, Dr, Iseed, den)
+      SUBROUTINE MCMOVE(En, Vir, Attempt, Nacc, Dr, Iseed, Den)
 c
 c     attempts to displace a randomly selected particle
 c
@@ -19,7 +19,7 @@ c
       INCLUDE 'conf.inc'
       INCLUDE 'system.inc'
       DOUBLE PRECISION enn, eno, En, RANF, xn, yn, zn, viro, virn, Vir, 
-     &                 Dr, den, den_t
+     &                 Dr, deno, denn, Den
       INTEGER o, Attempt, Nacc, jb, Iseed
  
       Attempt = Attempt + 1
@@ -27,19 +27,20 @@ c
 c     ---select a particle at random
       o = INT(NPART*RANF(Iseed)) + 1
 c     ---calculate energy old configuration
-      CALL ENERI(X(o), Y(o), Z(o), o, jb, eno, viro, den)
+      CALL ENERI(X(o), Y(o), Z(o), o, jb, eno, viro, deno)
 c     ---give particle a random displacement
       xn = X(o) + (RANF(Iseed)-0.5D0)*Dr
       yn = Y(o) + (RANF(Iseed)-0.5D0)*Dr
       zn = Z(o) + (RANF(Iseed)-0.5D0)*Dr
 c     ---calculate energy new configuration:
-      CALL ENERI(xn, yn, zn, o, jb, enn, virn, den_t)
+      CALL ENERI(xn, yn, zn, o, jb, enn, virn, denn)
 c     ---acceptance test
       IF (RANF(Iseed).LT.EXP(-BETA*(enn-eno))) THEN
 c        --accepted
          Nacc = Nacc + 1
          En = En + (enn-eno)
          Vir = Vir + (virn-viro)
+         Den = Den + (denn-deno)
 c        ---put particle in simulation box
          IF (xn.LT.0) xn = xn + BOX
          IF (xn.GT.BOX) xn = xn - BOX
