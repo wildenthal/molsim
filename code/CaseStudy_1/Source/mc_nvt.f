@@ -96,7 +96,7 @@ c           ---test total energy
      &        '       difference                  : ', e12.5 /,
      &        ' Value dE/dL at end of simulation  : ', f12.5 /,
      &        '       running dE/dL               : ', f12.5 /,
-     &        '       difference                  : ', f12.5 /,
+     &        '       difference                  : ', f12.5 )
 99003 FORMAT (' Number of att. to displ. a part.  : ', i10, /, 
      &        ' success: ', i10, '(= ', f5.2, '%)')
       END

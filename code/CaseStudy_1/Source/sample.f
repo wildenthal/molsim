@@ -27,7 +27,6 @@ c
          enp = 0
          press = 0
       END IF
-      WRITE (66, *) I, enp, press
-      WRITE (666, *) Den
+      WRITE (66, *) I, enp, press, Den
       RETURN
       END

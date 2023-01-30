@@ -1,0 +1,8 @@
+*.swp
+*.o
+mc_nvt
+out
+lj.res
+data/
+original_code/
+lj.prt

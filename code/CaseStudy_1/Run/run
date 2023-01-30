@@ -1,4 +1,5 @@
 #! /bin/csh -f
+rm      out
 cp 	lj.model        	fort.25
 foreach rho (0.70)
   echo " --- rho ${rho} "  		>> out
@@ -18,13 +19,13 @@ endofdata
  time  ../Source/mc_nvt  		>>& out 
  cp 	fort.21         	lj.res
  cp 	fort.66         	lj.prt
- mv     fort.666                dEdL.dat
  #perform block analysis
  cp 	lj.prth 		fort.31
- mv  	lj.prt 			fort.32
+ cp  	lj.prt 			fort.32
  ../Block/block  	 		>>& out 
  rm fort.*
 end
+python3 analyze.py
 exit
 
 
