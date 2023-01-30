@@ -54,7 +54,8 @@ c              ---attempt to displace a particle
             END DO
             IF (ii.EQ.2) THEN
 c              ---sample averages
-               IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir)
+               IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir, 
+     &                                                              den)
             END IF
             IF (MOD(icycl,ncycl/5).EQ.0) THEN
                WRITE (6, *) '======>> Done ', icycl, ' out of ', ncycl
@@ -96,7 +97,6 @@ c           ---test total energy
      &        ' Value dE/dL at end of simulation  : ', f12.5 /,
      &        '       running dE/dL               : ', f12.5 /,
      &        '       difference                  : ', f12.5 /,
-     &        ' Ensemble average of dE/dL         : ', f12.5)
 99003 FORMAT (' Number of att. to displ. a part.  : ', i10, /, 
      &        ' success: ', i10, '(= ', f5.2, '%)')
       END

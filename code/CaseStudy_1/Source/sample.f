@@ -1,13 +1,13 @@
 **==sample.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
  
-      SUBROUTINE SAMPLE(I, En, Vir)
+      SUBROUTINE SAMPLE(I, En, Vir, Den)
 c
-c      write quantities (pressure and energy) to file
+c      write quantities (pressure, energy and dE/dL) to file
 c
 c
 c  Ener (input) : total energy
 c  Vir  (input) : total virial
-c
+c  Den  (input) : derivative of energy w.r.t parameter lambda
 c
       IMPLICIT NONE
       INCLUDE 'parameter.inc'
@@ -15,7 +15,7 @@ c
       INCLUDE 'system.inc'
       INCLUDE 'potential.inc'
       INTEGER I
-      DOUBLE PRECISION En, enp, Vir, press, CORP, vol, rho
+      DOUBLE PRECISION En, enp, Vir, press, CORP, vol, rho, Den
  
       IF (NPART.NE.0) THEN
          enp = En/DBLE(NPART)
@@ -28,5 +28,6 @@ c
          press = 0
       END IF
       WRITE (66, *) I, enp, press
+      WRITE (666, *) Den
       RETURN
       END
