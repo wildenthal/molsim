@@ -1,5 +1,5 @@
 **==readdat.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
-      SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed)
+      SUBROUTINE READDAT(Equil, Prod, Nsamp, Ndispl, Dr, Iseed, Lambda)
 C     ---read input data and model parameters
 c
 c     ---input parameters: file: fort.15
@@ -43,7 +43,7 @@ c    X(NPART),Y(NPART),Z(NPART): position particle last particle
       INCLUDE 'conf.inc'
       INTEGER ibeg, Equil, Prod, i, Ndispl, Nsamp, Iseed
       DOUBLE PRECISION eps, sig, CORU, CORP, vir, boxf, rhof, rho, Dr,
-     & den
+     & den, Lambda
  
  
 c     ---read simulation data
@@ -54,7 +54,7 @@ c     ---read simulation data
       READ (15, *)
       READ (15, *) Ndispl
       READ (15, *)
-      READ (15, *) NPART, TEMP, rho
+      READ (15, *) NPART, TEMP, rho, Lambda
 c     ---initialise and test random number generator
       CALL RANTEST(Iseed)
  
@@ -108,7 +108,7 @@ c     ---calculate cut-off radius potential
 c     ---calculate energy of the shift
          ECUT = 0
          den = 0
-         CALL ENER(ECUT, vir, RC2, den)
+         CALL ENER(ECUT, vir, RC2, den, Lambda)
          WRITE (6, 99005) RC, ECUT
       END IF
       IF (TAILCO) THEN

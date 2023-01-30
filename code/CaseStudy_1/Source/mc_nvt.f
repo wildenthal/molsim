@@ -24,16 +24,16 @@ c__________________________________________________________________________
       INTEGER iseed, equil, prod, nsamp, ii, icycl, ndispl, attempt, 
      &        nacc, ncycl, nmoves, imove
       DOUBLE PRECISION en, ent, vir, virt, dr, den, dent
-      DOUBLE PRECISION dens, denc, dena, denb
+      DOUBLE PRECISION dens, denc, dena, denb, lambda
 c     ---initialize values for dE/dL accumulator
       dens = 0.D0
       denc = 0.D0
       WRITE (6, *) '**************** MC_NVT ***************'
 c     ---initialize sysem
-      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed)
+      CALL READDAT(equil, prod, nsamp, ndispl, dr, iseed, lambda)
       nmoves = ndispl
 c     ---total energy of the system
-      CALL TOTERG(en, vir, den)
+      CALL TOTERG(en, vir, den, lambda)
       WRITE (6, 99001) en, vir, den
 c     ---start MC-cycle
       DO ii = 1, 2
@@ -53,7 +53,8 @@ c        ---intialize the subroutine that adjust the maximum displacement
          DO icycl = 1, ncycl
             DO imove = 1, nmoves
 c              ---attempt to displace a particle
-               CALL MCMOVE(en, vir, attempt, nacc, dr, iseed, den)
+               CALL MCMOVE(en, vir, attempt, nacc, dr, iseed, den, 
+     &                                                           lambda)
             END DO
             IF (ii.EQ.2) THEN
 c              ---sample averages
@@ -75,11 +76,14 @@ c              ---adjust maximum displacements
             END IF
          END DO
          dens = dens/prod
+         IF (ii.EQ.2) THEN
+            WRITE (666, *) lambda, dens
+         END IF
          IF (ncycl.NE.0) THEN
             IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
      &                               100.*FLOAT(nacc)/FLOAT(attempt)
 c           ---test total energy
-            CALL TOTERG(ent, virt, dent)
+            CALL TOTERG(ent, virt, dent, lambda)
             IF (ABS(ent-en).GT.1.D-6) THEN
                WRITE (6, *) 
      &                    ' ######### PROBLEMS ENERGY ################ '

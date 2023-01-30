@@ -1,5 +1,5 @@
 **==ener.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
-      SUBROUTINE ENER(En, Vir, R2, Den)
+      SUBROUTINE ENER(En, Vir, R2, Den, L)
 c
 c     calculate energy
 c
@@ -11,8 +11,6 @@ c
       DOUBLE PRECISION R2, r2i, r6i, En, Vir, Den
       DOUBLE PRECISION L
       INCLUDE 'potential.inc'
- 
-      L = 0.5
       IF (R2.LT.RC2) THEN
          r2i = SIG2/R2
          r6i = r2i*r2i*r2i
