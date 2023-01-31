@@ -8,5 +8,5 @@ lambdas = data[:,0]
 for i in [1]:
 	values = data[:,i]
 	plt.figure()
-	plt.plot(lambdas,values)
+	plt.scatter(lambdas,values)
 	plt.savefig("data/lambdas.jpg".format(i), dpi=300)

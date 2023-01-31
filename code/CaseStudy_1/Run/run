@@ -5,8 +5,10 @@ cp 	lj.model        	fort.25
 #generate n values of lambda with python script
 python3 listgen.py 900
 
-set lambdas=`cat lambdas`
-rm lambdas
+#set lambdas=`cat lambdas`
+#rm lambdas
+
+set lambdas=0.5
 
 foreach lambda ($lambdas)
   echo " --- lambda ${lambda} "  		>> out
