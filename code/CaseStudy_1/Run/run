@@ -7,7 +7,7 @@ python3 listgen.py 900
 
 set lambdas=`cat lambdas`
 rm lambdas
-rm lambdas.dat
+rm lambda.dat
 
 foreach lambda ($lambdas)
   echo " --- lambda ${lambda} "  		>> out
