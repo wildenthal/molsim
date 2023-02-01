@@ -25,6 +25,7 @@ c__________________________________________________________________________
      &        nacc, ncycl, nmoves, imove
       DOUBLE PRECISION en, ent, vir, virt, dr, den, dent
       DOUBLE PRECISION dens, denc, dena, denb, lambda
+      DOUBLE PRECISION den2s, den2c, den2a, den2b
 c     ---initialize values for dE/dL accumulator
       dens = 0.D0
       denc = 0.D0
@@ -60,12 +61,18 @@ c              ---attempt to displace a particle
 c              ---sample averages
                IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir, 
      &                                                              den)
-c              ---sum values with Kahan algorithm
+c              ---sum den values with Kahan algorithm
                dena = den - denc
                denb = dens + dena
                denc = (denb - dens) - dena
                dens = denb
                
+c              ---sum square of values with Kahan
+               den2a = den**2 - den2c
+               den2b = den2s + den2a
+               den2c = (den2b - den2s) - den2a
+               den2s = den2b
+
             END IF
             IF (MOD(icycl,ncycl/5).EQ.0) THEN
                WRITE (6, *) '======>> Done ', icycl, ' out of ', ncycl
@@ -76,8 +83,9 @@ c              ---adjust maximum displacements
             END IF
          END DO
          dens = dens/prod
+         den2s = den2s/prod - dens**2
          IF (ii.EQ.2) THEN
-            WRITE (666, *) lambda, dens
+            WRITE (666, *) lambda, dens, den2s
          END IF
          IF (ncycl.NE.0) THEN
             IF (attempt.NE.0) WRITE (6, 99003) attempt, nacc, 
