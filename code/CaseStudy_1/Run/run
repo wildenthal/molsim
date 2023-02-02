@@ -2,8 +2,11 @@
 rm      out
 cp 	lj.model        	fort.25
 
+set lambdanr=10
+set npart=100
+
 #generate n values of lambda with python script
-python3 listgen.py 1
+python3 listgen.py ${lambdanr} 
 
 set lambdas=`cat lambdas`
 rm lambdas
@@ -11,9 +14,8 @@ rm lambdas
 rm mu_rho_integrated.dat
 touch mu_rho_integrated.dat
 
-set npart=100
 
-foreach rho (0.7)#(0.3 0.4 0.5 0.6 0.7 0.8 0.9)
+foreach rho (0.3 0.4 0.5 0.6 0.7 0.8 0.9)
 rm lambda.dat
 rm en_press.dat
 foreach lambda ($lambdas)
@@ -45,7 +47,7 @@ endofdata
  rm fort.*
  @ i++
 end
-python3 integrate.py ${rho} ${npart}
+python3 integrate.py ${rho} ${npart} ${lambdanr}
 end
 exit
 
