@@ -61,6 +61,7 @@ c      do i=1,15000
          avv(j) = avv(j)/20
          svv(j) = svv(j)/20 - avv(j)*avv(j)
          WRITE (6, 99003) name(j), avv(j), SQRT(svv(j)/20.D0)
+         WRITE (669, *) avv(j), SQRT(svv(j)/20.D0)
       END DO
  
       WRITE (6, *) '  number of blocks ', nblok
