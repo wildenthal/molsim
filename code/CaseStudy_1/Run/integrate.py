@@ -17,7 +17,7 @@ def func(x, a, b, c, d):
 	return a * x ** 3 + b * x ** 2 + c * x + d
 
 
-popt, pcov = curve_fit(func, data[1:,0], data[1:,1])#, sigma = np.sqrt(data[:,2]),absolute_sigma=True)
+popt, pcov = curve_fit(func, data[1:,0], data[1:,1], sigma = np.sqrt(data[1:,2]),absolute_sigma=True)
 
 def funcval(x):
 	return func(x,*popt)
@@ -36,8 +36,8 @@ mu_rho.close()
 
 default = plt.rcParams['lines.markersize']**2
 plt.plot(data[:,0], func(data[:,0],*popt), color='k')
-plt.scatter(data[:,0],data[:,1], s=0.3*default)
-plt.fill_between(data[:,0],func(data[:,0],*(popt+np.sqrt(np.diag(pcov)))),func(data[:,0],*(popt-np.sqrt(np.diag(pcov)))),alpha=0.3,color='orange')
+plt.scatter(data[1:,0],data[1:,1], s=0.3*default)
+#plt.fill_between(data[:,0],func(data[:,0],*(popt+np.sqrt(np.diag(pcov)))),func(data[:,0],*(popt-np.sqrt(np.diag(pcov)))),alpha=0.3,color='orange')
 plt.fill_between(data[:,0],data[:,1]-np.sqrt(data[:,2]),data[:,1]+np.sqrt(data[:,2]),alpha=0.3,color='pink')
 plt.plot([],[],'',label="Integral: {} +- {}".format(integral,error))
 plt.legend()
