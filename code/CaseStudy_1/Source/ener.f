@@ -12,7 +12,7 @@ c
       DOUBLE PRECISION L
       INCLUDE 'potential.inc'
  
-      L = 0.5
+      L = 1
       IF (R2.LT.RC2) THEN
          r2i = SIG2/R2
          r6i = r2i*r2i*r2i
