@@ -45,7 +45,7 @@ c        ---initialize
       ELSE IF (Switch.EQ.2) THEN
 c        ---write results
          IF (itest.NE.0) THEN
-            WRITE (6, 99005) itest, -LOG(wtest/itest)
+            WRITE (666, *) NPART/(BOX**3), (-LOG(wtest/itest))/BETA
          END IF
       ELSE
          STOP 'error:widom'
