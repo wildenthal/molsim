@@ -14,7 +14,7 @@ c
       INCLUDE 'system.inc'
  
       DOUBLE PRECISION xi, yi, zi, Ener, eni, CORU, viri, Vir, rho, Den,
-     & deni, Lambda
+     & deni, Lambda, CORDU
       INTEGER i, jb
  
       Ener = 0
@@ -34,7 +34,8 @@ c
 c     ---add tail corrections
       IF (TAILCO) THEN
          rho = NPART/(BOX**3)
-         Ener = Ener + NPART*CORU(RC, rho)
+         Ener = Ener + NPART*CORU(RC, rho, Lambda)
+         Den = Den + NPART*CORDU(RC, rho, Lambda)
       END IF
       RETURN
       END

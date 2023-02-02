@@ -7,10 +7,14 @@ import sys
 
 rho = float(sys.argv[1])
 npart = float(sys.argv[2])
-dx = 1/float(sys.argv[3])
+lambdanr = float(sys.argv[3])
+dx = 1/lambdanr
+filename1 = str(sys.argv[4])
+filename2 = str(sys.argv[5])
 
-data = np.loadtxt('lambda.dat')
-pressures = np.loadtxt('en_press.dat')[:,0]
+
+data = np.loadtxt(filename1)
+pressures = np.loadtxt(filename2)[:,0]
 pid, plj = [pressures[i] for i in (0,-1)]
 
 def func(x, a, b, c, d):
@@ -29,7 +33,7 @@ integral, error = quad(funcval,0,1)
 mu = integral/npart + (plj-pid)/rho
 
 mu_rho = open("mu_rho_integrated.dat", "a+")
-mu_rho.write(f"{rho} {integral} \n")
+mu_rho.write(f"{rho} {mu} \n")
 mu_rho.close()
 
 ### PLOTTING ###

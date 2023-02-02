@@ -112,7 +112,8 @@ c     ---calculate energy of the shift
          WRITE (6, 99005) RC, ECUT
       END IF
       IF (TAILCO) THEN
-         WRITE (6, 99006) RC, CORU(RC, rho), CORP(RC, rho)
+         WRITE (6, 99006) RC, CORU(RC, rho, Lambda),
+     &   CORP(RC, rho, Lambda)
       END IF
       RETURN
 99001 FORMAT ('  Number of equilibration cycles             :', i10, /, 

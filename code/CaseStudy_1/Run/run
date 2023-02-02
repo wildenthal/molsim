@@ -1,8 +1,9 @@
 #! /bin/csh -f
 rm      out
+rm fort.*
 cp 	lj.model        	fort.25
 
-set lambdanr=10
+set lambdanr=100
 set npart=100
 
 #generate n values of lambda with python script
@@ -14,10 +15,11 @@ rm lambdas
 rm mu_rho_integrated.dat
 touch mu_rho_integrated.dat
 
+rm lambda*
+rm en_press*
 
-foreach rho (0.3 0.4 0.5 0.6 0.7 0.8 0.9)
-rm lambda.dat
-rm en_press.dat
+foreach rho (0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0)
+
 foreach lambda ($lambdas)
   echo " --- rho ${rho} "  		>> out
   echo " --- rho ${rho} "  
@@ -38,16 +40,16 @@ endofdata
  time  ../Source/mc_nvt  		>>& out 
  cp 	fort.21         	lj.res
  cp 	fort.66         	lj.prt
- cat    fort.666                        >>& lambda.dat
+ cat    fort.666                        >>& lambda${lambdanr}_rho${rho}.dat
  #perform block analysis
  cp 	lj.prth 		fort.31
  cp  	lj.prt 			fort.32
  ../Block/block  	 		>>& out 
- cat    fort.669                        >>& en_press.dat
+ cat    fort.669                        >>& en_press${lambdanr}_rho${rho}.dat
  rm fort.*
  @ i++
 end
-python3 integrate.py ${rho} ${npart} ${lambdanr}
+python3 integrate.py ${rho} ${npart} ${lambdanr} lambda${lambdanr}_rho${rho}.dat en_press${lambdanr}_rho${rho}.dat
 end
 exit
 

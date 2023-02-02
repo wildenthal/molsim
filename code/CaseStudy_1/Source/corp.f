@@ -1,6 +1,6 @@
 **==corp.spg  processed by SPAG 4.52O  at 18:54 on 27 Mar 1996
  
-      FUNCTION CORP(R, Rho)
+      FUNCTION CORP(R, Rho, lambda)
 c
 c     tail correction for the pressure:
 c
@@ -11,10 +11,11 @@ c
  
       IMPLICIT NONE
       INCLUDE 'potential.inc'
-      DOUBLE PRECISION sig3, ri3, R, CORP, Rho
+      DOUBLE PRECISION sig3, ri3, R, CORP, Rho, lambda
  
       sig3 = SIG2*SQRT(SIG2)
       ri3 = sig3/(R*R*R)
-      CORP = 4*PI*EPS4*(Rho**2)*sig3*(2*ri3*ri3*ri3/9-ri3/3)
+      CORP = 4*PI*EPS4*(Rho**2)*sig3*(2*ri3*ri3*ri3*lambda**5/9-
+     &ri3*lambda**3/3)
       RETURN
       END

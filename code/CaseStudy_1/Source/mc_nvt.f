@@ -60,7 +60,7 @@ c              ---attempt to displace a particle
             IF (ii.EQ.2) THEN
 c              ---sample averages
                IF (MOD(icycl,nsamp).EQ.0) CALL SAMPLE(icycl, en, vir, 
-     &                                                              den)
+     &                                                den, lambda)
 c              ---sum den values with Kahan algorithm
                dena = den - denc
                denb = dens + dena
